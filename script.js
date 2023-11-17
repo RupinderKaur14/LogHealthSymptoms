@@ -1,4 +1,5 @@
 function showViewDiv() {
+    viewSymptoms();
     var viewDiv = document.getElementById("viewDiv");
     var logDiv = document.getElementById("logDiv");
     logDiv.style.display = "none";
@@ -11,8 +12,8 @@ function showLogDiv() {
     var logDiv = document.getElementById("logDiv");
     viewDiv.style.display = "none";
     logDiv.style.display = "block";
-  
-    
+    var date = document.getElementById("viewDate");
+    date.value = "";
 }
 
 
@@ -41,4 +42,46 @@ function logSymptoms(e) {
         });
     }
   
+}
+
+function viewSymptoms() {
+    
+    var date = document.getElementById("viewDate").value;
+    console.log(date);
+    const url = `http://127.0.0.1:5000/getSymptoms?date=${date}`;
+
+    fetch(url)
+    .then(response =>{
+        if(response.ok){
+            return response.json();
+        }else{
+            throw new Error("Error: while getting logged data.")
+        }
+    }).then(response =>{
+       // document.removeChild("listDiv");
+        var errorMessage = document.getElementById("viewerrorMessage");
+        var symptomsArray = JSON.parse(response);
+        console.log(symptomsArray.length);
+        if(symptomsArray.length <= 0){
+            errorMessage.innerHTML ="No symptom logged for selected date!"
+            errorMessage.style.display = "block";
+        }else{
+            errorMessage.style.display = "none";
+
+            var listDiv = document.getElementById("listDiv");
+            var ul = document.createElement('ul');
+
+            for (var i = 0; i < symptomsArray.length; ++i) {
+                var symptom = symptomsArray[i];  
+                var li = document.createElement('li');
+                li.textContent = symptom;
+                ul.appendChild(li);
+            }
+
+            listDiv.appendChild(ul);
+        }
+
+    }).catch(error =>{
+        console.error("Error:",error);
+    })
 }
