@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>View and Log Health Symptoms</title>
+        <link rel="stylesheet" href="styles.css">
+        <script type="text/javascript" src="script.js"></script>
+    </head>
+    <body>
+        <div id="pageHeader">
+            <button type="button" id="logButton"  onclick="showLogDiv()">Log Symptoms</button>
+            <input type="date" id="viewDate">
+            <button type="submit" id="viewButton"  onclick="showViewDiv()">View Symptoms</button>
+        </div>
+        <div id="logDiv">
+            
+            <h4>Add Symptoms</h4>
+            <form id="symptomsForm" onsubmit="logSymptoms(this);return false;">
+                <p id="errorMessage" style="color: red;display: none;"></p>
+                
+                <input type="checkbox" id="symp1" name="symptom" value="Body Pain">
+                <label for="symp1">Body Pain</label>
+                <br>
+                <input type="checkbox" id="symp2" name="symptom" value="Anxious">
+                <label for="symp2">Anxious</label>
+                <br>
+                <input type="checkbox" id="symp3" name="symptom" value="Cramp">
+                <label for="symp3">Cramp</label>
+                <br>
+                <input type="checkbox" id="symp4" name="symptom" value="Mood Swing">
+                <label for="symp4">Mood Swing</label>
+                <br>
+                <input type="checkbox" id="symp5" name="symptom" value="Happy">
+                <label for="symp5">Happy</label>
+                <br>
+                <input type="checkbox" id="symp6" name="symptom" value="Sad">
+                <label for="symp6">Sad</label>
+                <br>
+                <input type="checkbox" id="symp7" name="symptom" value="Low Energy">
+                <label for="symp7">Low Energy</label>
+                <br>
+                <input type="checkbox" id="symp8" name="symptom" value="Energetic">
+                <label for="symp8">Energetic</label>
+                <br>
+                <input type="checkbox" id="symp9" name="symptom" value="Brain Fog">
+                <label for="symp9">Brain Fog</label>
+                <br>
+                <input type="checkbox" id="symp10" name="symptom" value="Confused">
+                <label for="symp10">Confused</label>
+                <br>
+                <input type="checkbox" id="symp11" name="symptom" value="Self Critical">
+                <label for="symp11">Self Critical</label>
+                <br>
+                <input type="checkbox" id="symp12" name="symptom" value="Headache">
+                <label for="symp12">Headache</label>
+                <br>
+                <button type="submit" id="submitB"> Submit</button>
+            </form>
+        </div>
+        <div id="viewDiv">
+            <h4>Logged Symptoms</h4>
+        </div>
+    </body>
+</html>
