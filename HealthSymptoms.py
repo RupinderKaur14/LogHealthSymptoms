@@ -25,7 +25,33 @@ def store_data(symptoms):
     connection.commit()
     cursor.close()
     connection.close()
+    
+@app.route('/getSymptoms', methods=['GET'])
+def get_symptoms():
+   # date = request.args.get()
+    data = get_logged_symptoms()
+    print(data)
+    flattened_data = list(set(symptom for symptoms_string in data for symptom in json.loads(symptoms_string)))
+    json_data = json.dumps(flattened_data)
+    return jsonify(json_data)
 
+def get_logged_symptoms():
+    connection = sqlite3.connect('HealthData.db')
+    cursor = connection.cursor()
+    search_date = '2023-11-16'
+
+    # Use json_each to extract individual symptoms and use DISTINCT to get unique symptoms
+    cursor.execute("""
+        SELECT DISTINCT json_extract(symptoms, '$') AS symptom
+        FROM HealthSymptoms
+        WHERE date LIKE ?
+    """, ('%' + search_date + '%',))
+    
+    symptoms = [row[0] for row in cursor.fetchall()]
+
+    cursor.close()
+    connection.close()
+    return symptoms
 
 
 
