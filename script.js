@@ -1,9 +1,14 @@
 function showViewDiv() {
-    viewSymptoms();
-    var viewDiv = document.getElementById("viewDiv");
-    var logDiv = document.getElementById("logDiv");
-    logDiv.style.display = "none";
-    viewDiv.style.display = "block";
+    var date = document.getElementById("viewDate");
+    if(date.value != ""){
+        viewSymptoms();
+        var viewDiv = document.getElementById("viewDiv");
+        var logDiv = document.getElementById("logDiv");
+        logDiv.style.display = "none";
+        viewDiv.style.display = "block";
+    }else{
+        date.style.accentColor = "red";
+    }
 
 }
 
@@ -58,17 +63,18 @@ function viewSymptoms() {
             throw new Error("Error: while getting logged data.")
         }
     }).then(response =>{
-       // document.removeChild("listDiv");
         var errorMessage = document.getElementById("viewerrorMessage");
+        var listDiv = document.getElementById("listDiv");
         var symptomsArray = JSON.parse(response);
-        console.log(symptomsArray.length);
+        listDiv.innerHTML ="";
         if(symptomsArray.length <= 0){
+            listDiv.style.display = "none";
             errorMessage.innerHTML ="No symptom logged for selected date!"
             errorMessage.style.display = "block";
         }else{
             errorMessage.style.display = "none";
 
-            var listDiv = document.getElementById("listDiv");
+            
             var ul = document.createElement('ul');
 
             for (var i = 0; i < symptomsArray.length; ++i) {
@@ -79,6 +85,7 @@ function viewSymptoms() {
             }
 
             listDiv.appendChild(ul);
+            listDiv.style.display = "block";
         }
 
     }).catch(error =>{

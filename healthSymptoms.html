@@ -8,8 +8,10 @@
     <body>
         <div id="pageHeader">
             <button type="button" id="logButton"  onclick="showLogDiv()">Log Symptoms</button>
-            <input type="date" id="viewDate">
-            <button type="submit" id="viewButton"  onclick="showViewDiv()">View Symptoms</button>
+            <span style="float: right;">
+                <span>Select date to see logged symptoms</span><input type="date" id="viewDate" required onchange="showViewDiv()"></span>
+            
+            <!-- <button type="submit" id="viewButton"  onclick="showViewDiv()">View Symptoms</button> -->
         </div>
         <div id="logDiv">
             
@@ -59,7 +61,7 @@
         <div id="viewDiv">
             <h4>Logged Symptoms</h4>
             <p id="viewerrorMessage" style="color: red;display: none;"></p>
-            <div id = "listDiv"></div>
+            <div id = "listDiv" style="display: block;"></div>
         </div>
     </body>
 </html>
